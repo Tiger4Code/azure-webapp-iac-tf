@@ -16,7 +16,7 @@
 # 3. Optionally, adjust the `TERRAFORM_VERSION` and `TERRAFORM_WORKSPACE` environment variables below.
 #
 # For more information on GitHub Actions for Terraform: https://github.com/hashicorp/setup-terraform
-name: Provision Azure Infrastructure with Terraform
+name: Plan % Apply Azure Infrastructure with Terraform
 
 on:
   workflow_dispatch:
