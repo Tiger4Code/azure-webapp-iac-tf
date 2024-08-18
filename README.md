@@ -54,25 +54,30 @@ Before you begin, ensure you have the following:
    ```bash
    git clone https://github.com/Tiger4Code/azure-webapp-iac-tf.git
    cd azure-webapp-iac-tf
+
 ### Customize the variables:
 Edit the `locals` block in the Terraform code to customize the resource tags and location.
 
 ### Authenticate to Azure:
 Use the Azure CLI to log in and set the subscription:
-    ```bash
-    az login
-    az account set --subscription "<YOUR_SUBSCRIPTION_ID>"
+   ```bash
+   az login
+   az account set --subscription "<YOUR_SUBSCRIPTION_ID>"
+   ```
 
 ### Initialize Terraform:
    ```bash
-    terraform init
+   terraform init
+   ```
 
 ### Plan the Deployment
    ```bash
-    terraform plan
+   terraform plan
+   ```
 ### Apply the Plan
    ```bash
    terraform apply
+   ```
 ### Access the VM
     After deployment, you can access the VM using the public IP address and SSH. Open a web browser and navigate to the public IP address to see the Nginx default page.
 
