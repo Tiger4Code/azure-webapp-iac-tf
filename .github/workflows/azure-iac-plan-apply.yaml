@@ -1,0 +1,56 @@
+# This workflow provisions Azure infrastructure using Terraform when a commit is pushed to your default branch.
+#
+# This workflow assumes you have already created the necessary Terraform configuration files in your repository.
+# 
+# To configure this workflow:
+#
+# 1. Create an Azure Service Principal for Terraform. Follow the instructions at:
+#    https://docs.microsoft.com/en-us/azure/developer/terraform/authenticate-to-azure
+#
+# 2. Create secrets in your repository for your Azure credentials. The required secrets are:
+#    - AZURE_CLIENT_ID
+#    - AZURE_CLIENT_SECRET
+#    - AZURE_TENANT_ID
+#    - AZURE_SUBSCRIPTION_ID
+#
+# 3. Optionally, adjust the `TERRAFORM_VERSION` and `TERRAFORM_WORKSPACE` environment variables below.
+#
+# For more information on GitHub Actions for Terraform: https://github.com/hashicorp/setup-terraform
+
+on:
+  workflow_dispatch:
+
+env:
+  TERRAFORM_VERSION: '1.5.0'           # Set this to the Terraform version to use
+  TERRAFORM_WORKSPACE: 'default'       # Set this to your desired Terraform workspace (optional)
+
+permissions:
+  contents: read
+  id-token: write  # Required for GitHub OIDC to authenticate with Azure
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: ${{ env.TERRAFORM_VERSION }}
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Plan
+      run: terraform plan
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      env:
+        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+
