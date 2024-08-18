@@ -59,14 +59,14 @@ Edit the `locals` block in the Terraform code to customize the resource tags and
 
 ### Authenticate to Azure:
 Use the Azure CLI to log in and set the subscription:
-
-```bash
-az login
-az account set --subscription "<YOUR_SUBSCRIPTION_ID>"
+    ```bash
+    az login
+    az account set --subscription "<YOUR_SUBSCRIPTION_ID>"
 
 ### Initialize Terraform:
    ```bash
     terraform init
+
 ### Plan the Deployment
    ```bash
     terraform plan
