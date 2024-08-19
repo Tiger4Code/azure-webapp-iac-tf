@@ -93,10 +93,10 @@ resource "azurerm_linux_virtual_machine" "webserver_vm" {
 
   admin_ssh_key {
     username   = "adminuser"
-    public_key = file("~/.ssh/id_rsa.pub")
+    public_key = var.vm_ssh_public_key #file("~/.ssh/id_rsa.pub")
   }
 
-  os_disk {
+  os_disk { 
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
@@ -118,4 +118,9 @@ resource "azurerm_linux_virtual_machine" "webserver_vm" {
   EOT
   )
 
+}
+
+variable "vm_ssh_public_key" {
+  description = "The public SSH key to use for the virtual machine."
+  type        = string
 }
