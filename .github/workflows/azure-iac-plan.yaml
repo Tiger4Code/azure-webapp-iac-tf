@@ -1,21 +1,3 @@
-# This workflow provisions Azure infrastructure using Terraform when a commit is pushed to your default branch.
-#
-# This workflow assumes you have already created the necessary Terraform configuration files in your repository.
-# 
-# To configure this workflow:
-#
-# 1. Create an Azure Service Principal for Terraform. Follow the instructions at:
-#    https://docs.microsoft.com/en-us/azure/developer/terraform/authenticate-to-azure
-#
-# 2. Create secrets in your repository for your Azure credentials. The required secrets are:
-#    - AZURE_CLIENT_ID
-#    - AZURE_CLIENT_SECRET
-#    - AZURE_TENANT_ID
-#    - AZURE_SUBSCRIPTION_ID
-#
-# 3. Optionally, adjust the `TERRAFORM_VERSION` and `TERRAFORM_WORKSPACE` environment variables below.
-#
-# For more information on GitHub Actions for Terraform: https://github.com/hashicorp/setup-terraform
 name: Plan Azure Infrastructure with Terraform
 
 on:
@@ -24,6 +6,10 @@ on:
 env:
   TERRAFORM_VERSION: '1.9.4'           # Set this to the Terraform version to use
   TERRAFORM_WORKSPACE: 'default'       # Set this to your desired Terraform workspace (optional)
+  AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+  AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+  AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
 permissions:
   contents: read
@@ -41,6 +27,11 @@ jobs:
       with:
         terraform_version: ${{ env.TERRAFORM_VERSION }}
 
+    - name: Authenticate with Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: Terraform Init
       run: terraform init
 
@@ -48,4 +39,3 @@ jobs:
       env: 
         TF_VAR_vm_ssh_public_key: ${{ secrets.AZURE_VM_SSH_PUBLIC_KEY }}
       run: terraform plan
-
