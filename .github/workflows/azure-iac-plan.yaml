@@ -1,4 +1,4 @@
-name: Plan Azure Infrastructure with Terraform
+name: Terraform Plan 
 
 on:
   workflow_dispatch:
