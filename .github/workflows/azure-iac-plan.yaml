@@ -4,12 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  TERRAFORM_VERSION: '1.9.4'           # Set this to the Terraform version to use
+  TERRAFORM_VERSION: '1.9.2'           # Set this to the Terraform version to use
   TERRAFORM_WORKSPACE: 'default'       # Set this to your desired Terraform workspace (optional)
-  AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-  AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-  AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
 permissions:
   contents: read
