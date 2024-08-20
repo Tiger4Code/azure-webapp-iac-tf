@@ -96,7 +96,7 @@ resource "azurerm_linux_virtual_machine" "webserver_vm" {
     public_key = var.vm_ssh_public_key #file("~/.ssh/id_rsa.pub")
   }
 
-  os_disk { 
+  os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
