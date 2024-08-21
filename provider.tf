@@ -7,7 +7,8 @@ terraform {
     storage_account_name = "noorterraformstatest"
     container_name       = "terraform-state"
     key                  = "noor-azure-web-iac.terraform.tfstate"
-    # access_key           = var.storage_account_access_key
+    # Can also be set via `ARM_ACCESS_KEY` environment variable.
+    # access_key           = "abcdefghijklmnopqrstuvwxyz0123456789..."  
   }
 }
 

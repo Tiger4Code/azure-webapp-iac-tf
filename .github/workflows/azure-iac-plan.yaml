@@ -39,6 +39,5 @@ jobs:
 
     - name: Terraform Plan
       env: 
-        TF_VAR_storage_account_access_key: ${{ secrets.STORAGE_ACCOUNT_ACCESS_KEY }}
         TF_VAR_vm_ssh_public_key: ${{ secrets.AZURE_VM_SSH_PUBLIC_KEY }}
       run: terraform plan
