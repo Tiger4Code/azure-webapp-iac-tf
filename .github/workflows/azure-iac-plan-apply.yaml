@@ -47,15 +47,19 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Terraform Init
+      env: 
+        ARM_ACCESS_KEY: ${{ secrets.STORAGE_ACCOUNT_ACCESS_KEY }}
       run: terraform init
 
     - name: Terraform Plan
       env: 
+        ARM_ACCESS_KEY: ${{ secrets.STORAGE_ACCOUNT_ACCESS_KEY }}
         TF_VAR_vm_ssh_public_key: ${{ secrets.AZURE_VM_SSH_PUBLIC_KEY }}
       run: terraform plan
 
     - name: Terraform Apply
       env: 
+        ARM_ACCESS_KEY: ${{ secrets.STORAGE_ACCOUNT_ACCESS_KEY }}
         TF_VAR_vm_ssh_public_key: ${{ secrets.AZURE_VM_SSH_PUBLIC_KEY }}
       run: terraform apply -auto-approve
 
