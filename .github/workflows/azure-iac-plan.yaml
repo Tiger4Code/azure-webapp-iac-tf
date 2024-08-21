@@ -6,7 +6,6 @@ on:
 env:
   TERRAFORM_VERSION: '1.9.2'           # Set this to the Terraform version to use
   TERRAFORM_WORKSPACE: 'default'       # Set this to your desired Terraform workspace (optional)
-  STORAGE_ACCOUNT_ACCESS_KEY: ${{ secrets.STORAGE_ACCOUNT_ACCESS_KEY }}  # Add this line
 
 permissions:
   contents: read
@@ -31,7 +30,7 @@ jobs:
 
     - name: Terraform Init
       env:
-        STORAGE_ACCOUNT_ACCESS_KEY: ${{ secrets.STORAGE_ACCOUNT_ACCESS_KEY }}
+        ARM_ACCESS_KEY: ${{ secrets.STORAGE_ACCOUNT_ACCESS_KEY }}
         ARM_CLIENT_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
         ARM_CLIENT_SECRET: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
         ARM_SUBSCRIPTION_ID: ${{ fromJson(secrets.AZURE_CREDENTIALS).subscriptionId }}
